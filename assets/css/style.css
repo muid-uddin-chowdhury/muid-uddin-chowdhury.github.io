@@ -1,9 +1,28 @@
 /* ============================================================
    Muid Uddin Chowdhury — personal site
-   Single stylesheet for every page.
+   Dark is the default. [data-theme="light"] on <html> overrides.
    ============================================================ */
 
 :root {
+  /* Dark (default) */
+  --paper:      #11171B;
+  --surface:    #192228;
+  --ink:        #E6ECEF;
+  --ink-soft:   #94A6AE;
+  --rule:       #2B383F;
+  --accent:     #57BFB0;
+  --accent-wash:#1D3835;
+
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Spectral", Georgia, "Times New Roman", serif;
+
+  --rail: 268px;
+  --pad: 2rem;
+
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
   --paper:      #ECEEF0;
   --surface:    #FFFFFF;
   --ink:        #17232B;
@@ -12,11 +31,7 @@
   --accent:     #0E6E63;
   --accent-wash:#DCEAE7;
 
-  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --serif: "Spectral", Georgia, "Times New Roman", serif;
-
-  --rail: 268px;
-  --pad: 2rem;
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }
@@ -46,7 +61,7 @@ a:hover { border-bottom-color: var(--accent); }
 
 .skip {
   position: absolute; left: -9999px; top: 0;
-  background: var(--ink); color: #fff; padding: .6rem 1rem; z-index: 100;
+  background: var(--accent); color: var(--paper); padding: .6rem 1rem; z-index: 100;
 }
 .skip:focus { left: .5rem; top: .5rem; }
 
@@ -110,7 +125,7 @@ a:hover { border-bottom-color: var(--accent); }
   border-left: 2px solid transparent;
   border-radius: 0 3px 3px 0;
 }
-.nav a:hover { color: var(--ink); background: #F3F5F6; }
+.nav a:hover { color: var(--ink); background: var(--accent-wash); }
 
 .nav a[aria-current="page"] {
   color: var(--accent);
@@ -137,6 +152,37 @@ a:hover { border-bottom-color: var(--accent); }
   padding: .28rem .7rem;
 }
 .rail__links a:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ---------- Theme toggle ------------------------------------------- */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  margin-top: 1.4rem;
+  font-family: var(--sans);
+  font-size: .8rem;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: .34rem .8rem;
+  cursor: pointer;
+}
+.theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
+
+.theme-toggle svg {
+  width: 15px; height: 15px;
+  fill: none; stroke: currentColor;
+  stroke-width: 1.6; stroke-linecap: round;
+}
+
+/* Dark is active -> offer the sun. Light is active -> offer the moon. */
+.icon-moon, .label-dark { display: none; }
+[data-theme="light"] .icon-moon,
+[data-theme="light"] .label-dark { display: inline; }
+[data-theme="light"] .icon-sun,
+[data-theme="light"] .label-light { display: none; }
 
 /* ---------- Main -------------------------------------------------- */
 
@@ -226,7 +272,7 @@ p { margin: 0 0 1.05rem; }
   margin-top: .6rem;
 }
 
-/* ---------- Entry (education, leadership, certificate) ------------- */
+/* ---------- Entry blocks ------------------------------------------- */
 
 .entry {
   background: var(--surface);
@@ -263,32 +309,6 @@ p { margin: 0 0 1.05rem; }
 .facts li:first-child { border-top: 0; }
 .facts strong { color: var(--ink); font-weight: 500; }
 
-/* ---------- Repository list --------------------------------------- */
-
-.repos {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  border-top: 1px solid var(--rule);
-}
-.repos li {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: .5rem 1rem;
-  padding: .7rem .2rem;
-  border-bottom: 1px solid var(--rule);
-}
-.repos .title {
-  font-family: var(--sans);
-  font-size: .95rem;
-}
-.repos .repo-link {
-  font-family: var(--sans);
-  font-size: .82rem;
-}
-
 /* ---------- Gallery ------------------------------------------------ */
 
 .gallery {
@@ -304,22 +324,6 @@ p { margin: 0 0 1.05rem; }
   border: 1px solid var(--rule);
   border-radius: 4px;
   background: var(--accent-wash);
-}
-
-/* ---------- Video embed -------------------------------------------- */
-
-.embed {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 1.6rem;
-  background: #000;
-}
-.embed iframe {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%; border: 0;
 }
 
 /* ---------- Footer -------------------------------------------------- */
