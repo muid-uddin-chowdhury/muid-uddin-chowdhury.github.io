@@ -1,22 +1,17 @@
 # muid-uddin-chowdhury.github.io
 
-Personal academic site — plain HTML and CSS, no build step, no dependencies.
+Personal academic site — plain HTML and CSS, no build step, no dependencies. Dark theme by default with a light-mode toggle.
 
 ## Files
 
 ```
 index.html                 Home / about
 academic-credentials.html
-certifications.html
 research.html
-hardware-projects.html
-software-projects.html
-leadership.html
-music.html
 404.html
 .nojekyll                  Tells GitHub Pages to serve the files as-is
 assets/css/style.css       All styling
-assets/js/nav.js           Mobile menu toggle (the only JS)
+assets/js/nav.js           Mobile menu + theme toggle (the only JS)
 assets/img/                Placeholder images — replace with your own
 assets/cv.pdf              Put your CV here (the rail links to it)
 ```
@@ -54,3 +49,15 @@ git push -u origin main
 python3 -m http.server 8000
 # open http://localhost:8000
 ```
+
+## Theme
+
+Dark is the default. A small inline script in the `<head>` of each page reads
+`localStorage.theme` before the first paint, so a returning visitor who picked
+light mode never sees a dark flash. The toggle sits at the bottom of the
+sidebar.
+
+To make **light** the default instead, swap the two blocks at the top of
+`style.css`: put the light values in `:root` and the dark values under a
+`[data-theme="dark"]` selector, then flip the check in each page's inline
+script and in `applyTheme()` in `nav.js`.
